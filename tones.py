@@ -3,6 +3,7 @@
 from gtts import gTTS
 import email_listener
 import os, re, config
+import webbrowser
 
 def create_voice(voice_text, file_name): 
 
@@ -119,6 +120,10 @@ def parse_emails():
         print("After Timeout")
 
 def email_recieved(email_txt):
+    # Start the timer
+    filename = "/Timer/index.html"
+    webbrowser.open('file://' + os.getcwd() + filename,new=2)
+
     # Get call type:
     call_type_txt = call_type(email_txt)
     create_voice(call_type_txt, "call_type.mp3")

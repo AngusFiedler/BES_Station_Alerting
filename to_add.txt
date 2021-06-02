@@ -1,0 +1,6 @@
+BDCR - Barker Dam Catostrophic Failure
+BDNR - Barker non-cat Failure
+BOMBR - Bomb Threat
+FISLIDR - Snow or landslide
+GDR - Gross Dam Failure
+WADAMR - Water or Debris Threat
