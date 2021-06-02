@@ -74,7 +74,6 @@ def call_add(email_txt):
     end = 'BLD:'
     call_add_txt = email_txt[email_txt.find(start)+len(start):email_txt.rfind(end)]
 
-    print(call_add_txt)
     return call_add_txt
 
 def call_desc(email_txt):
@@ -82,7 +81,6 @@ def call_desc(email_txt):
     end = 'TIME:'
     call_desc_txt = email_txt[email_txt.find(start)+len(start):email_txt.rfind(end)]
 
-    print(call_desc_txt)
     return call_desc_txt
 
 def interp_message(email_listener, msg_dict):
@@ -90,16 +88,24 @@ def interp_message(email_listener, msg_dict):
     if msg_dict:
         first_msg = list(msg_dict.keys())[0]
 
-        # get the plain text from the email
-        email_txt = msg_dict[first_msg]['Plain_Text']
+        # Check if the email came from @boulderrescue.org or bretsa otherwise disreg
+        if "@boulderrescue.org" in first_msg or "bretsa" in first_msg:
 
-        # Print the email for debugging purposes
-        print(email_txt)
+            # get the plain text from the email
+            email_txt = msg_dict[first_msg]['Plain_Text']
 
-        # Send the message to the interp 
-        email_recieved(email_txt)
+            # Print the email for debugging purposes
+            print('first_msg')
+            print(first_msg)
 
-    # print(msg_dict['Plain_Text'])
+            # print("Message DICT:")
+            # print(msg_dict)
+
+            # Send the message to the interp 
+            email_recieved(email_txt)
+        else:
+            print("Email was not from a BES account or bretsa: " + first_msg)
+
 
 def parse_emails():
     # Set your email, password, what folder you want to listen to, and where to save attachments
@@ -115,11 +121,11 @@ def parse_emails():
    
     timeout = 60
     while (True):
-        print("before Timeout")
         el.listen(timeout,process_func=interp_message)
-        print("After Timeout")
 
 def email_recieved(email_txt):
+
+
     # Start the timer
     filename = "/Timer/index.html"
     webbrowser.open('file://' + os.getcwd() + filename,new=2)
